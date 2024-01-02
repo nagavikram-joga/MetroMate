@@ -33,7 +33,7 @@ MetroMate is an Android application designed to assist users traveling on the Hy
 
 ## How to Use
 
-Simply download the MetroMate app from the Google Play Store, install it on your Android device, and enjoy the following benefits:
+Simply download the MetroMate app from the Releases section of this Repository, install it on your Android device, and enjoy the following benefits:
 
 1. **Open the App:** Launch MetroMate on your device.
 2. **Explore Features:** Navigate through the various features available.
