@@ -27,9 +27,9 @@ public class MinInterchange extends AppCompatActivity {
     Button back;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> shortestPath;
-    String start,stop;
-    int count=0,change=0, dest,sIndex,eIndex;
-    String[] b = {"Ameerpet","MG Bus Station", "Parade Ground"};
+    String start, stop;
+    int count = 0, change = 0, dest, sIndex, eIndex;
+    String[] b = {"Ameerpet", "MG Bus Station", "Parade Ground"};
     String[][] a = new String[][]{
             {"Miyapur", "JNTU College", "KPHB Colony", "Kukatpally", "Dr.B.R.Ambedkar Balanagar",
                     "Moosapet", "Bharat Nagar", "Erragadda", "ESI Hospital", "SR Nagar",
@@ -51,7 +51,8 @@ public class MinInterchange extends AppCompatActivity {
     MinInterchange.CustomArrayAdapter adapter;
     ListView lst;
     public MinInterchange.Graph f192gh;
-    TextView s1, c1, f1,d1;
+    TextView s1, c1, f1, d1;
+
     @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -60,15 +61,13 @@ public class MinInterchange extends AppCompatActivity {
         back.setOnClickListener(v -> finish());
         this.start = getIntent().getStringExtra("SOURCE");
         this.stop = getIntent().getStringExtra("DEST");
-        this.f =(Integer)getIntent().getIntExtra("FARE",0);
-        lst = (ListView)findViewById(R.id.listroute);
+        this.f = (Integer) getIntent().getIntExtra("FARE", 0);
+        lst = (ListView) findViewById(R.id.listroute);
         s1 = (TextView) findViewById(R.id.sta);
         c1 = (TextView) findViewById(R.id.chan);
         f1 = (TextView) findViewById(R.id.f);
         d1 = (TextView) findViewById(R.id.time);
-        f1.setText(""+(f));
-
-
+        f1.setText("" + (f));
 
 
         //ShortestRoute
@@ -81,18 +80,17 @@ public class MinInterchange extends AppCompatActivity {
                 "Chaitanyapuri", "Victoria Memorial", "LB Nagar",
                 "Nagole", "Uppal", "Stadium", "NGRI", "Habsiguda", "Tarnaka", "Mettuguda",
                 "Secunderabad East", "Parade Ground", "Paradise", "Rasoolpura", "Prakash Nagar",
-                "Begumpet",  "Madhura Nagar", "Yusufguda", "Road No.5 Jubilee Hills",
+                "Begumpet", "Madhura Nagar", "Yusufguda", "Road No.5 Jubilee Hills",
                 "Jubilee Hills Check Post", "Peddamma Gudi", "Madhapur", "Durgam Cheruvu",
                 "Hitec City", "Raidurg",
                 "Secunderabad West", "Gandhi Hospital", "Musheerabad", "RTC X Roads",
                 "Chikkadpally", "Narayanguda", "Sultan Bazar"
         };
-        for(int i=0;i<c.length;i++)
-        {
-            if(start.equals(c[i]))
-                sIndex=i;
-            if(stop.equals(c[i]))
-                eIndex=i;
+        for (int i = 0; i < c.length; i++) {
+            if (start.equals(c[i]))
+                sIndex = i;
+            if (stop.equals(c[i]))
+                eIndex = i;
         }
         changes.clear();
         MinInterchange.Graph graph;
@@ -101,44 +99,39 @@ public class MinInterchange extends AppCompatActivity {
         graph.buildGraph();
         findWay(sIndex, eIndex);
 
-        if(changes.size()<2)
-        {
-            c1.setText(""+changes.size());
+        if (changes.size() < 2) {
+            c1.setText("" + changes.size());
             d1.setText((Math.round(((double) shortestPath.size()) * 2.203d) + ((long) (this.changes.size() * 4))) + " min");
             adapter = new MinInterchange.CustomArrayAdapter(MinInterchange.this, shortestPath, color);
             lst.setAdapter(adapter);
 
-        }
-        else {
+        } else {
             this.Fare();
             changes.clear();
             int i2 = 1;
-            while (i2 < list.size()-1) {
+            while (i2 < list.size() - 1) {
                 int i3 = i2 - 1;
                 int i4 = i2 + 1;
-                if((list.get(i3).equals("Malakpet") &&list.get(i4).equals("Sultan Bazar") )
-                        ||(list.get(i3).equals("Sultan Bazar") && list.get(i4).equals("Malakpet"))
-                        ||(list.get(i3).equals("Osmania Medical College") && list.get(i4).equals("Sultan Bazar"))
-                        ||(list.get(i3).equals("Sultan Bazar") && list.get(i4).equals("Osmania Medical College")))
-                {
+                if ((list.get(i3).equals("Malakpet") && list.get(i4).equals("Sultan Bazar"))
+                        || (list.get(i3).equals("Sultan Bazar") && list.get(i4).equals("Malakpet"))
+                        || (list.get(i3).equals("Osmania Medical College") && list.get(i4).equals("Sultan Bazar"))
+                        || (list.get(i3).equals("Sultan Bazar") && list.get(i4).equals("Osmania Medical College"))) {
                     this.changes.add("MG Bus Station");
                 }
-                if((list.get(i3).equals("Secunderabad West") && list.get(i4).equals("Paradise") )
-                        ||(list.get(i3).equals("Paradise") &&list.get(i4).equals("Secunderabad West"))
-                        ||(list.get(i3).equals("Secunderabad West") && list.get(i4).equals("Secunderabad East"))
-                        ||(list.get(i3).equals("Secunderabad East") && list.get(i4).equals("Secunderabad West")))
-                {
+                if ((list.get(i3).equals("Secunderabad West") && list.get(i4).equals("Paradise"))
+                        || (list.get(i3).equals("Paradise") && list.get(i4).equals("Secunderabad West"))
+                        || (list.get(i3).equals("Secunderabad West") && list.get(i4).equals("Secunderabad East"))
+                        || (list.get(i3).equals("Secunderabad East") && list.get(i4).equals("Secunderabad West"))) {
                     this.changes.add("Parade Ground");
                 }
-                if((list.get(i3).equals("Punjagutta") && list.get(i4).equals("Madhura Nagar") )
-                        ||(list.get(i3).equals("Madhura Nagar") &&list.get(i4).equals("Punjagutta"))
-                        ||(list.get(i3).equals("Punjagutta") && list.get(i4).equals("Begumpet"))
-                        ||(list.get(i3).equals("Begumpet") && list.get(i4).equals("Punjagutta"))
-                        ||(list.get(i3).equals("SR Nagar") && list.get(i4).equals("Madhura Nagar"))
-                        ||(list.get(i3).equals("Madhura Nagar") && list.get(i4).equals("SR Nagar"))
-                        ||(list.get(i3).equals("SR Nagar") && list.get(i4).equals("Begumpet"))
-                        ||(list.get(i3).equals("Begumpet") && list.get(i4).equals("SR Nagar")))
-                {
+                if ((list.get(i3).equals("Punjagutta") && list.get(i4).equals("Madhura Nagar"))
+                        || (list.get(i3).equals("Madhura Nagar") && list.get(i4).equals("Punjagutta"))
+                        || (list.get(i3).equals("Punjagutta") && list.get(i4).equals("Begumpet"))
+                        || (list.get(i3).equals("Begumpet") && list.get(i4).equals("Punjagutta"))
+                        || (list.get(i3).equals("SR Nagar") && list.get(i4).equals("Madhura Nagar"))
+                        || (list.get(i3).equals("Madhura Nagar") && list.get(i4).equals("SR Nagar"))
+                        || (list.get(i3).equals("SR Nagar") && list.get(i4).equals("Begumpet"))
+                        || (list.get(i3).equals("Begumpet") && list.get(i4).equals("SR Nagar"))) {
                     this.changes.add("Ameerpet");
                 }
 
@@ -148,7 +141,7 @@ public class MinInterchange extends AppCompatActivity {
             lst.setAdapter(adapter);
             s1.setText(String.valueOf(count + 2));
             c1.setText(String.valueOf(change));
-            d1.setText((Math.round(((double) (count+2)) * 2.203d) + (long) (change * 4)) + " min");
+            d1.setText((Math.round(((double) (count + 2)) * 2.203d) + (long) (change * 4)) + " min");
         }
 
 
@@ -157,23 +150,12 @@ public class MinInterchange extends AppCompatActivity {
         //int x = count + 2;   // x is no. of stations
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     }
+
     public int search(int k, int i, String[] b, @NonNull String[][] a) {
         int j = 0, col3 = 0;
         while (j < a[i].length) {
-            if ( a[i][j].equals(b[k]) ) {
+            if (a[i][j].equals(b[k])) {
                 col3 = j;
                 break;
             }
@@ -181,13 +163,14 @@ public class MinInterchange extends AppCompatActivity {
         }
         return col3;
     }
+
     private void Fare() {
         list.clear();
-        change=0;
-        count=0;
+        change = 0;
+        count = 0;
         String start = this.start;
         String stop = this.stop;
-        if ( start.length() != 0 )
+        if (start.length() != 0)
             list.add("Source : " + start);
         else
             list.clear();
@@ -196,12 +179,12 @@ public class MinInterchange extends AppCompatActivity {
         for (i = 0; i < 3; i++) {
             j = 0;
             while (j < a[i].length) {
-                if ( a[i][j].equals(start) ) {
+                if (a[i][j].equals(start)) {
                     flag = 1;
                     row1 = i;
                     col1 = j;
                 }
-                if ( a[i][j].equals(stop) ) {
+                if (a[i][j].equals(stop)) {
                     flag1 = 1;
                     row2 = i;
                     col2 = j;
@@ -213,8 +196,8 @@ public class MinInterchange extends AppCompatActivity {
 //        if ( flag == 0 || flag1 == 0 )
 //            Toast.makeText(MainActivity.this, "Please Insert start & end station", Toast.LENGTH_LONG).show();
         //main Algorithm
-        if ( row1 == row2 ) {
-            if ( col1 < col2 ) {
+        if (row1 == row2) {
+            if (col1 < col2) {
                 col1++;
                 while (col1 != col2) {
                     list.add("  " + a[row1][col1]);
@@ -222,7 +205,7 @@ public class MinInterchange extends AppCompatActivity {
                     count++;
                 }
 
-            } else if ( col1 > col2 ) {
+            } else if (col1 > col2) {
                 col1--;
                 while (col1 != col2) {
                     list.add("  " + a[row1][col1]);
@@ -231,18 +214,18 @@ public class MinInterchange extends AppCompatActivity {
                 }
             }
         } else {
-            if((row1==0 && row2==1) || (row1==1 &&row2==0))
-                k=0;
-            else if((row1==0&& row2==2)||(row1==2 && row2==0))
-                k=1;
+            if ((row1 == 0 && row2 == 1) || (row1 == 1 && row2 == 0))
+                k = 0;
+            else if ((row1 == 0 && row2 == 2) || (row1 == 2 && row2 == 0))
+                k = 1;
             else
-                k=2;
+                k = 2;
 
             //  col3=15;
 
             int col3 = search(k, row1, b, a);
             //int col3=15;
-            if ( col1 < col3 ) {
+            if (col1 < col3) {
                 col1++;
                 while (col1 != col3) {
                     list.add("  " + a[row1][col1]);
@@ -250,7 +233,7 @@ public class MinInterchange extends AppCompatActivity {
                     count++;
                 }
 
-            } else if ( col1 > col3 ) {
+            } else if (col1 > col3) {
                 col1--;
                 while (col1 != col3) {
                     list.add("  " + a[row1][col1]);
@@ -265,7 +248,7 @@ public class MinInterchange extends AppCompatActivity {
             change++;
             col3 = search(k, row2, b, a);
             //col3=19;
-            if ( col3 < col2 ) {
+            if (col3 < col2) {
                 col3++;
                 while (col3 != col2) {
                     list.add("  " + a[row2][col3]);
@@ -273,7 +256,7 @@ public class MinInterchange extends AppCompatActivity {
                     count++;
                 }
 
-            } else if ( col3 > col2 ) {
+            } else if (col3 > col2) {
                 col3--;
                 while (col3 != col2) {
                     list.add("  " + a[row2][col3]);
@@ -285,14 +268,13 @@ public class MinInterchange extends AppCompatActivity {
             count++;
             list.add("Destination : " + a[row2][col3]);
         }
-        if ( list.contains("Destination : " + stop) ) {
+        if (list.contains("Destination : " + stop)) {
             list.toArray(new String[list.size()]);
         } else {
             list.add("Destination : " + stop);
             list.toArray(new String[list.size()]);
         }
     }
-
 
 
     private class CustomArrayAdapter extends ArrayAdapter<String> {
@@ -359,7 +341,7 @@ public class MinInterchange extends AppCompatActivity {
                 "Chikkadpally", "Narayanguda", "Sultan Bazar"
         };
 
-        for (int j=0;j<itemList.size();j++) {
+        for (int j = 0; j < itemList.size(); j++) {
             int index = -1;
             if (j == 0 || j == itemList.size() - 1 || itemList.get(j).trim().startsWith("Change")) {
                 colorList.add(-1); // -1 indicates no color change
@@ -371,11 +353,9 @@ public class MinInterchange extends AppCompatActivity {
                     break;
                 }
             }
-            if(index==10 && (itemList.get(j-1).trim().equals("Begumpet") || itemList.get(j-1).trim().equals("Madhura Nagar")))
-            {
+            if (index == 10 && (itemList.get(j - 1).trim().equals("Begumpet") || itemList.get(j - 1).trim().equals("Madhura Nagar"))) {
                 colorList.add(1);
-            }
-            else if (index <= 26) {
+            } else if (index <= 26) {
                 colorList.add(0);
             } else if (index <= 48) {
                 colorList.add(1);
@@ -386,16 +366,17 @@ public class MinInterchange extends AppCompatActivity {
 
         return colorList;
     }
-    public void findWay(int start,int stop) {
+
+    public void findWay(int start, int stop) {
         int i = 0;
-        int parseInt=start;
-        int parseInt2 =stop;
+        int parseInt = start;
+        int parseInt2 = stop;
         this.dest = parseInt2;
         shortestPath = this.f192gh.shortestPath(parseInt, parseInt2);
 
 
         int i2 = 1;
-        while (i2 < shortestPath.size()-1) {
+        while (i2 < shortestPath.size() - 1) {
             int i3 = i2 - 1;
             int i4 = i2 + 1;
 //            if (shortestPath.get(i3).charAt(shortestPath.get(i3).length()-3)
@@ -404,57 +385,50 @@ public class MinInterchange extends AppCompatActivity {
 //                    || shortestPath.get(i2).equals("Parade Ground"))) {
 //                this.change.add(shortestPath.get(i2));
 //            }
-            if((shortestPath.get(i3).equals("Malakpet") && shortestPath.get(i4).equals("Sultan Bazar") )
-                    ||(shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Malakpet"))
-                    ||(shortestPath.get(i3).equals("Osmania Medical College") && shortestPath.get(i4).equals("Sultan Bazar"))
-                    ||(shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Osmania Medical College")))
-            {
+            if ((shortestPath.get(i3).equals("Malakpet") && shortestPath.get(i4).equals("Sultan Bazar"))
+                    || (shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Malakpet"))
+                    || (shortestPath.get(i3).equals("Osmania Medical College") && shortestPath.get(i4).equals("Sultan Bazar"))
+                    || (shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Osmania Medical College"))) {
                 this.changes.add("MG Bus Station");
             }
-            if((shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Paradise") )
-                    ||(shortestPath.get(i3).equals("Paradise") && shortestPath.get(i4).equals("Secunderabad West"))
-                    ||(shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Secunderabad East"))
-                    ||(shortestPath.get(i3).equals("Secunderabad East") && shortestPath.get(i4).equals("Secunderabad West")))
-            {
+            if ((shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Paradise"))
+                    || (shortestPath.get(i3).equals("Paradise") && shortestPath.get(i4).equals("Secunderabad West"))
+                    || (shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Secunderabad East"))
+                    || (shortestPath.get(i3).equals("Secunderabad East") && shortestPath.get(i4).equals("Secunderabad West"))) {
                 this.changes.add("Parade Ground");
             }
-            if((shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Madhura Nagar") )
-                    ||(shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("Punjagutta"))
-                    ||(shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Begumpet"))
-                    ||(shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("Punjagutta"))
-                    ||(shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Madhura Nagar"))
-                    ||(shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("SR Nagar"))
-                    ||(shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Begumpet"))
-                    ||(shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("SR Nagar")))
-            {
+            if ((shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Madhura Nagar"))
+                    || (shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("Punjagutta"))
+                    || (shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Begumpet"))
+                    || (shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("Punjagutta"))
+                    || (shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Madhura Nagar"))
+                    || (shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("SR Nagar"))
+                    || (shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Begumpet"))
+                    || (shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("SR Nagar"))) {
                 this.changes.add("Ameerpet");
             }
 
             i2 = i4;
         }
-        adapter = new MinInterchange.CustomArrayAdapter(MinInterchange.this, shortestPath,color);
+        adapter = new MinInterchange.CustomArrayAdapter(MinInterchange.this, shortestPath, color);
         lst.setAdapter(adapter);
         int count = shortestPath.size();
-        s1.setText(""+(count));
-        for(int x=0;x<shortestPath.size();x++)
-        {
-            int flag=0;
-            for(int y=0;y<changes.size();y++)
-            {
+        s1.setText("" + (count));
+        for (int x = 0; x < shortestPath.size(); x++) {
+            int flag = 0;
+            for (int y = 0; y < changes.size(); y++) {
                 if (changes.get(y).equals(shortestPath.get(x))) {
                     shortestPath.set(x, "Change here : " + shortestPath.get(x));
-                    flag=1;
+                    flag = 1;
                     //color.set(x,3);
                 }
             }
-            if(x==0) {
+            if (x == 0) {
                 shortestPath.set(x, "Source : " + shortestPath.get(x));
-            }
-            else if(x==shortestPath.size()-1) {
+            } else if (x == shortestPath.size() - 1) {
                 shortestPath.set(x, "Destination : " + shortestPath.get(x));
-            }
-            else{
-                if(flag==0)
+            } else {
+                if (flag == 0)
                     shortestPath.set(x, "   " + shortestPath.get(x));
             }
         }
@@ -462,6 +436,7 @@ public class MinInterchange extends AppCompatActivity {
 //        c1.setText(""+change);
 //        d1.setText((Math.round(((double) shortestPath.size()) * 2.203d) + ((long) (this.change.size() * 4))) + " min");
     }
+
     class Graph {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
 

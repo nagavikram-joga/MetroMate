@@ -23,32 +23,33 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class ShortestRoute  extends AppCompatActivity {
+public class ShortestRoute extends AppCompatActivity {
     ArrayList<String> change = new ArrayList<>();
-    ArrayList <Integer>color = new ArrayList<>();
+    ArrayList<Integer> color = new ArrayList<>();
     Button back;
-    String [][]a;
-    public int dest,start,stop,f;
+    String[][] a;
+    public int dest, start, stop, f;
     ArrayAdapter<String> adapter;
     ListView lst;
-    TextView s1, c1, f1,d1;
+    TextView s1, c1, f1, d1;
     public ShortestRoute.Graph f192gh;
+
     @SuppressLint("MissingInflatedId")
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.fare_and_route_list);
         back = findViewById(R.id.back_btn5);
         back.setOnClickListener(v -> finish());
-        this.start = (Integer)getIntent().getIntExtra("SOURCE",0);
-        this.stop = (Integer)getIntent().getIntExtra("DEST",0);
-        this.f =(Integer)getIntent().getIntExtra("FARE",0);
+        this.start = (Integer) getIntent().getIntExtra("SOURCE", 0);
+        this.stop = (Integer) getIntent().getIntExtra("DEST", 0);
+        this.f = (Integer) getIntent().getIntExtra("FARE", 0);
 
-        lst = (ListView)findViewById(R.id.listroute);
+        lst = (ListView) findViewById(R.id.listroute);
         s1 = (TextView) findViewById(R.id.sta);
         c1 = (TextView) findViewById(R.id.chan);
         f1 = (TextView) findViewById(R.id.f);
         d1 = (TextView) findViewById(R.id.time);
-        f1.setText(""+(f));
+        f1.setText("" + (f));
         ShortestRoute.Graph graph;
         graph = new Graph();
         this.f192gh = graph;
@@ -56,10 +57,11 @@ public class ShortestRoute  extends AppCompatActivity {
         findWay(start, stop);
 
     }
-    public void findWay(int start,int stop) {
+
+    public void findWay(int start, int stop) {
         int i = 0;
-        int parseInt=start;
-        int parseInt2 =stop;
+        int parseInt = start;
+        int parseInt2 = stop;
         this.dest = parseInt2;
         ArrayList<String> shortestPath = this.f192gh.shortestPath(parseInt, parseInt2);
         //ListView listView = (ListView) findViewById(R.id.list_item);
@@ -74,7 +76,7 @@ public class ShortestRoute  extends AppCompatActivity {
 
 
         int i2 = 1;
-        while (i2 < shortestPath.size()-1) {
+        while (i2 < shortestPath.size() - 1) {
             int i3 = i2 - 1;
             int i4 = i2 + 1;
 //            if (shortestPath.get(i3).charAt(shortestPath.get(i3).length()-3)
@@ -83,64 +85,58 @@ public class ShortestRoute  extends AppCompatActivity {
 //                    || shortestPath.get(i2).equals("Parade Ground"))) {
 //                this.change.add(shortestPath.get(i2));
 //            }
-            if((shortestPath.get(i3).equals("Malakpet") && shortestPath.get(i4).equals("Sultan Bazar") )
-                    ||(shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Malakpet"))
-                    ||(shortestPath.get(i3).equals("Osmania Medical College") && shortestPath.get(i4).equals("Sultan Bazar"))
-                    ||(shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Osmania Medical College")))
-            {
+            if ((shortestPath.get(i3).equals("Malakpet") && shortestPath.get(i4).equals("Sultan Bazar"))
+                    || (shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Malakpet"))
+                    || (shortestPath.get(i3).equals("Osmania Medical College") && shortestPath.get(i4).equals("Sultan Bazar"))
+                    || (shortestPath.get(i3).equals("Sultan Bazar") && shortestPath.get(i4).equals("Osmania Medical College"))) {
                 this.change.add("MG Bus Station");
             }
-            if((shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Paradise") )
-                    ||(shortestPath.get(i3).equals("Paradise") && shortestPath.get(i4).equals("Secunderabad West"))
-                    ||(shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Secunderabad East"))
-                    ||(shortestPath.get(i3).equals("Secunderabad East") && shortestPath.get(i4).equals("Secunderabad West")))
-            {
+            if ((shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Paradise"))
+                    || (shortestPath.get(i3).equals("Paradise") && shortestPath.get(i4).equals("Secunderabad West"))
+                    || (shortestPath.get(i3).equals("Secunderabad West") && shortestPath.get(i4).equals("Secunderabad East"))
+                    || (shortestPath.get(i3).equals("Secunderabad East") && shortestPath.get(i4).equals("Secunderabad West"))) {
                 this.change.add("Parade Ground");
             }
-            if((shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Madhura Nagar") )
-                    ||(shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("Punjagutta"))
-                    ||(shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Begumpet"))
-                    ||(shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("Punjagutta"))
-                    ||(shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Madhura Nagar"))
-                    ||(shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("SR Nagar"))
-                    ||(shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Begumpet"))
-                    ||(shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("SR Nagar")))
-            {
+            if ((shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Madhura Nagar"))
+                    || (shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("Punjagutta"))
+                    || (shortestPath.get(i3).equals("Punjagutta") && shortestPath.get(i4).equals("Begumpet"))
+                    || (shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("Punjagutta"))
+                    || (shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Madhura Nagar"))
+                    || (shortestPath.get(i3).equals("Madhura Nagar") && shortestPath.get(i4).equals("SR Nagar"))
+                    || (shortestPath.get(i3).equals("SR Nagar") && shortestPath.get(i4).equals("Begumpet"))
+                    || (shortestPath.get(i3).equals("Begumpet") && shortestPath.get(i4).equals("SR Nagar"))) {
                 this.change.add("Ameerpet");
             }
 
             i2 = i4;
         }
-        adapter = new ShortestRoute.CustomArrayAdapter(ShortestRoute.this, shortestPath,color);
+        adapter = new ShortestRoute.CustomArrayAdapter(ShortestRoute.this, shortestPath, color);
         lst.setAdapter(adapter);
         int count = shortestPath.size();
-        s1.setText(""+(count));
-        for(int x=0;x<shortestPath.size();x++)
-        {
-            int flag=0;
-            for(int y=0;y<change.size();y++)
-            {
+        s1.setText("" + (count));
+        for (int x = 0; x < shortestPath.size(); x++) {
+            int flag = 0;
+            for (int y = 0; y < change.size(); y++) {
                 if (change.get(y).equals(shortestPath.get(x))) {
                     shortestPath.set(x, "Change here : " + shortestPath.get(x));
-                    flag=1;
+                    flag = 1;
                     //color.set(x,3);
                 }
             }
-            if(x==0) {
+            if (x == 0) {
                 shortestPath.set(x, "Source : " + shortestPath.get(x));
-            }
-            else if(x==shortestPath.size()-1) {
+            } else if (x == shortestPath.size() - 1) {
                 shortestPath.set(x, "Destination : " + shortestPath.get(x));
-            }
-            else{
-                if(flag==0)
+            } else {
+                if (flag == 0)
                     shortestPath.set(x, "   " + shortestPath.get(x));
             }
         }
         int changes = change.size();
-        c1.setText(""+changes);
+        c1.setText("" + changes);
         d1.setText((Math.round(((double) shortestPath.size()) * 2.203d) + ((long) (this.change.size() * 4))) + " min");
     }
+
     class Graph {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
 
@@ -348,7 +344,7 @@ public class ShortestRoute  extends AppCompatActivity {
                 "Chikkadpally", "Narayanguda", "Sultan Bazar"
         };
 
-        for (int j=0;j<itemList.size();j++) {
+        for (int j = 0; j < itemList.size(); j++) {
             int index = -1;
             if (j == 0 || j == itemList.size() - 1 || change.contains(itemList.get(j))) {
                 colorList.add(-1); // -1 indicates no color change
@@ -360,11 +356,9 @@ public class ShortestRoute  extends AppCompatActivity {
                     break;
                 }
             }
-            if(index==10 && (itemList.get(j-1).equals("Begumpet") || itemList.get(j-1).equals("Madhura Nagar")))
-            {
+            if (index == 10 && (itemList.get(j - 1).equals("Begumpet") || itemList.get(j - 1).equals("Madhura Nagar"))) {
                 colorList.add(1);
-            }
-            else if (index <= 26) {
+            } else if (index <= 26) {
 
                 colorList.add(0);
             } else if (index <= 48) {
@@ -376,8 +370,6 @@ public class ShortestRoute  extends AppCompatActivity {
 
         return colorList;
     }
-
-
 
 
 }

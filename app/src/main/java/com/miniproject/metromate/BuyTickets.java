@@ -9,10 +9,10 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-public class BuyTickets extends AppCompatActivity{
+public class BuyTickets extends AppCompatActivity {
 
     Button back;
-    CardView paytm,phonepe,whatsapp;
+    CardView paytm, phonepe, whatsapp;
 
     @SuppressLint("MissingInflatedId")
     @Override

@@ -17,7 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-/*
+
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.LocationRequest;
@@ -26,37 +26,24 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-
- */
-
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    RadioButton minimum_Interchange,CheckedBtn,shortest_Route;
+    RadioButton minimum_Interchange, CheckedBtn, shortest_Route;
     private static final int REQUEST_CHECK_SETTINGS = 1001;
 
-    int checkedBtnId,sIndex,eIndex,count = 0,change = 0;
+    int checkedBtnId, sIndex, eIndex, count = 0, change = 0;
     RadioGroup filter;
-    TextView sourceText,destText;
-    String source="Select Source",dest="Select Destination", actvSource , actvDestination;
-    CardView holidays_list,show_metro_map,buy_tickets,show_fare_calculator,btn,otherInfo,s1,s2;
+    TextView sourceText, destText;
+    String source = "Select Source", dest = "Select Destination", actvSource, actvDestination;
+    CardView holidays_list, show_metro_map, buy_tickets, show_fare_calculator, btn, otherInfo, s1, s2;
     Button show_route_n_fare;
     ArrayList<String> list = new ArrayList<>();
     String[][] a;
-    String[] b = {"Ameerpet","MG Bus Station", "Parade Ground"};
+    String[] b = {"Ameerpet", "MG Bus Station", "Parade Ground"};
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -66,31 +53,31 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
         actvSource = source;
-        actvDestination =dest;
+        actvDestination = dest;
 
         //radio group
         filter = findViewById(R.id.filter);
         minimum_Interchange = findViewById(R.id.minimumInterchange);
         shortest_Route = findViewById(R.id.shortestRoute);
         shortest_Route.setChecked(true);
-        CheckedBtn=shortest_Route;
+        CheckedBtn = shortest_Route;
         filter.setOnCheckedChangeListener((group, checkedId) -> {
             // Check which RadioButton was selected
             if (checkedId == R.id.minimumInterchange) {
                 // Option 1 selected
-                CheckedBtn=minimum_Interchange;
+                CheckedBtn = minimum_Interchange;
                 // Perform desired action
             } else if (checkedId == R.id.shortestRoute) {
-                CheckedBtn=shortest_Route;
+                CheckedBtn = shortest_Route;
             }
         });
 
-        s1=findViewById(R.id.cvDepart);
-        s2=findViewById(R.id.Destination);
+        s1 = findViewById(R.id.cvDepart);
+        s2 = findViewById(R.id.Destination);
         s1.setOnClickListener(v -> openSourceList());
         s2.setOnClickListener(v -> openDestList());
-        sourceText=findViewById(R.id.tvStationDepart);
-        destText=findViewById(R.id.tvStationDestination);
+        sourceText = findViewById(R.id.tvStationDepart);
+        destText = findViewById(R.id.tvStationDestination);
         show_metro_map = findViewById(R.id.CardMetroMap);
         show_metro_map.setOnClickListener(v -> openMetroMap());
 
@@ -114,11 +101,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         CheckedBtn = findViewById(checkedBtnId);
 
         show_route_n_fare = findViewById(R.id.show_fare_n_route1);
-        show_route_n_fare.setOnClickListener(v -> openFareActivity(source,dest));
+        show_route_n_fare.setOnClickListener(v -> openFareActivity(source, dest));
 
     }
-
-
 
 
     private void openOtherInfo() {
@@ -131,41 +116,44 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     public void checkButton(View view) {
     }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    private void openMetroMap()
-    {
+
+    private void openMetroMap() {
         startActivity(new Intent(MainActivity.this, MetroMap.class));
     }
-    private void openBuyTicket()
-    {
-        startActivity(new Intent(MainActivity.this,BuyTickets.class));
+
+    private void openBuyTicket() {
+        startActivity(new Intent(MainActivity.this, BuyTickets.class));
     }
-    private void openHolidayList()
-    {
+
+    private void openHolidayList() {
         startActivity(new Intent(MainActivity.this, HolidayList.class));
     }
+
     public void openFareActivity(@NonNull String source, String dest) {
 
-        if(source.equals("Select Source") && dest.equals("Select Destination"))
+        if (source.equals("Select Source") && dest.equals("Select Destination"))
             Toast.makeText(MainActivity.this, "Please select Source & Destination", Toast.LENGTH_SHORT).show();
-        else if( source.equals("Select Source") )
+        else if (source.equals("Select Source"))
             Toast.makeText(MainActivity.this, "Please select Source", Toast.LENGTH_SHORT).show();
-        else if( dest.equals("Select Destination") )
+        else if (dest.equals("Select Destination"))
             Toast.makeText(MainActivity.this, "Please select Destination", Toast.LENGTH_SHORT).show();
-        else if(source.equals(dest))
+        else if (source.equals(dest))
             Toast.makeText(MainActivity.this, "Source & Destination should not be same", Toast.LENGTH_SHORT).show();
         else {
-            if(CheckedBtn==minimum_Interchange)
-                minInterchange(source,dest);
-            else{
-                shortestRoute(source,dest);
+            if (CheckedBtn == minimum_Interchange)
+                minInterchange(source, dest);
+            else {
+                shortestRoute(source, dest);
             }
         }
         //minInterchange(source,dest);
@@ -184,20 +172,19 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 "Chaitanyapuri", "Victoria Memorial", "LB Nagar",
                 "Nagole", "Uppal", "Stadium", "NGRI", "Habsiguda", "Tarnaka", "Mettuguda",
                 "Secunderabad East", "Parade Ground", "Paradise", "Rasoolpura", "Prakash Nagar",
-                "Begumpet",  "Madhura Nagar", "Yusufguda", "Road No.5 Jubilee Hills",
+                "Begumpet", "Madhura Nagar", "Yusufguda", "Road No.5 Jubilee Hills",
                 "Jubilee Hills Check Post", "Peddamma Gudi", "Madhapur", "Durgam Cheruvu",
                 "Hitec City", "Raidurg",
                 "Secunderabad West", "Gandhi Hospital", "Musheerabad", "RTC X Roads",
                 "Chikkadpally", "Narayanguda", "Sultan Bazar"
         };
-        for(int i=0;i<c.length;i++)
-        {
-            if(start.equals(c[i]))
-                sIndex=i;
-            if(dest.equals(c[i]))
-                eIndex=i;
+        for (int i = 0; i < c.length; i++) {
+            if (start.equals(c[i]))
+                sIndex = i;
+            if (dest.equals(c[i]))
+                eIndex = i;
         }
-        int f = new FareCalculator().fare(start,dest);
+        int f = new FareCalculator().fare(start, dest);
         Intent intent = new Intent(this, ShortestRoute.class);
         intent.putExtra("SOURCE", sIndex);
         intent.putExtra("DEST", eIndex);
@@ -207,13 +194,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    private void openFareCalculator()
-    {
+    private void openFareCalculator() {
         startActivity(new Intent(MainActivity.this, FareCalculator.class));
     }
-    public void minInterchange(String start,String dest)
-    {
-        int f = new FareCalculator().fare(start,dest);
+
+    public void minInterchange(String start, String dest) {
+        int f = new FareCalculator().fare(start, dest);
         Intent intent = new Intent(MainActivity.this, MinInterchange.class);
         intent.putExtra("SOURCE", start);
         intent.putExtra("DEST", dest);
@@ -226,7 +212,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //    public void onLocationChanged(@NonNull Location location) {
 //
 //    }
-
 
 
     private void checkLocationSettings() {
@@ -266,10 +251,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             }
         });
     }
+
     private void openNearestMetro() {
         // Check location settings
         checkLocationSettings();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -313,7 +300,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Intent intent = new Intent(MainActivity.this, StationList.class);
         startActivityForResult(intent, 2);
     }
-
 
 
 }

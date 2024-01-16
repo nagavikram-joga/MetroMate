@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AboutDevelopers extends AppCompatActivity {
     Button back;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

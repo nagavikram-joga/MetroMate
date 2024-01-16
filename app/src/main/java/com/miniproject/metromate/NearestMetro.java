@@ -39,12 +39,12 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
     ArrayAdapter<String[]> adapter;
     JSONArray jSONArray;
     LinearLayout linearLayout;
-    String latitude,longitude,latitude1,longitude1;
+    String latitude, longitude, latitude1, longitude1;
     ArrayList<String[]> stationNames;
     ArrayAdapter<String> adapter1;
     public double lat;
     ListView lst;
-    Button map,back;
+    Button map, back;
     LocationManager locationManager;
     public double lon;
 
@@ -77,7 +77,7 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
 //            }
 //        };
 //        lst.setAdapter(adapter);
-        map=findViewById(R.id.mapsBtn);
+        map = findViewById(R.id.mapsBtn);
         map.setVisibility(View.INVISIBLE);
 
         linearLayout = findViewById(R.id.ll_map_info);
@@ -122,7 +122,7 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
         this.lat = location.getLatitude();
         this.lon = location.getLongitude();
         stationNames = new ArrayList<String[]>();
-        String [][]sn =  new String[10][2];
+        String[][] sn = new String[10][2];
         this.locationManager.removeUpdates(this);
         try {
             jSONArray = new JSONObject("{\"students\": [\n     " +
@@ -210,13 +210,11 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
             this.ASaka = new ArrayList<>();
             for (int i3 = 0; i3 < jSONArray.length(); i3++) {
                 JSONObject jSONObject2 = jSONArray.getJSONObject(i3);
-                double ans =distance(this.lat, this.lon, Double.parseDouble(jSONObject2.getString("lat")),
+                double ans = distance(this.lat, this.lon, Double.parseDouble(jSONObject2.getString("lat")),
                         Double.parseDouble(jSONObject2.getString("long")));
-                float d=(float) ans;
-                for(int x=0;x<10;x++)
-                {
-                    if(d==dist[x])
-                    {
+                float d = (float) ans;
+                for (int x = 0; x < 10; x++) {
+                    if (d == dist[x]) {
                         String[] stationData = new String[2];
                         stationData[0] = jSONObject2.getString("name");
                         stationData[1] = Math.round(ans * 100.0) / 100.0 + " km";
@@ -224,10 +222,9 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
 
                         //sn[x]=jSONObject2.getString("name");
                     }
-                    if(d==dist[0])
-                    {
-                        latitude1=jSONObject2.getString("lat");
-                        longitude1=jSONObject2.getString("long");
+                    if (d == dist[0]) {
+                        latitude1 = jSONObject2.getString("lat");
+                        longitude1 = jSONObject2.getString("long");
                     }
                 }
             }
@@ -269,7 +266,6 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
             lst.setAdapter(adapter);
 
 
-
         } catch (Exception unused) {
             System.exit(2);
         }
@@ -290,10 +286,9 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
                 for (int i2 = 0; i2 < jSONArray.length(); i2++) {
                     try {
                         JSONObject jSONObject = jSONArray.getJSONObject(i2);
-                        if(jSONObject.getString("name").equals(station))
-                        {
-                            latitude=jSONObject.getString("lat");
-                            longitude=jSONObject.getString("long");
+                        if (jSONObject.getString("name").equals(station)) {
+                            latitude = jSONObject.getString("lat");
+                            longitude = jSONObject.getString("long");
                         }
 
                     } catch (JSONException e) {
@@ -308,6 +303,7 @@ public class NearestMetro extends AppCompatActivity implements LocationListener 
         });
 
     }
+
     public double distance(double lat1, double lon1, double lat2, double lon2) {
         // Earth's radius in kilometers
         double radius = 6371;

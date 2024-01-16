@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class OtherInfo extends AppCompatActivity {
 
-    Button back,offers,helpline,offlwebsite,tokens,feedback,developers1;
+    Button back, offers, helpline, offlwebsite, tokens, feedback, developers1;
     TextView t1;
 
     @SuppressLint("MissingInflatedId")
@@ -21,7 +21,7 @@ public class OtherInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.other_info);
 
-        t1=findViewById(R.id.otherInfoText);
+        t1 = findViewById(R.id.otherInfoText);
         t1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,14 +37,14 @@ public class OtherInfo extends AppCompatActivity {
         helpline = findViewById(R.id.helpline);
         offlwebsite = findViewById(R.id.offlwebsite);
         tokens = findViewById(R.id.tokens);
-        feedback =findViewById(R.id.feedback);
+        feedback = findViewById(R.id.feedback);
         developers1 = findViewById(R.id.developers);
 
         developers1.setVisibility(View.INVISIBLE);
         developers1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OtherInfo.this,AboutDevelopers.class));
+                startActivity(new Intent(OtherInfo.this, AboutDevelopers.class));
             }
         });
 
@@ -56,7 +56,7 @@ public class OtherInfo extends AppCompatActivity {
                 Uri.parse("https://docs.google.com/forms/d/e" +
                         "/1FAIpQLSc3SjSeEAopbXM2TnWHwP15hwU7b1DfraXK16ANJdqdPLcPcw/viewform?usp=sf_link"))));
 
-        offers.setOnClickListener(arg0->startActivity(new Intent(OtherInfo.this, Offers.class)));
+        offers.setOnClickListener(arg0 -> startActivity(new Intent(OtherInfo.this, Offers.class)));
         //developers.setOnClickListener(arg0->startActivity(new Intent(OtherInfo.this, AboutDev.class)));
 
         helpline.setOnClickListener(v -> {

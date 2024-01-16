@@ -22,7 +22,8 @@
             android:name=".SplashScreen"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Metro_Mate">
+            android:theme="@style/Theme.Metro_Mate"
+            tools:ignore="RedundantLabel">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
